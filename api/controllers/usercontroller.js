@@ -62,19 +62,19 @@ export const signOut = async(rwq,res,next)=> {
   }
 }
 
-export const getUserListing = async(req,res,next)=> {
-  if(req.user.id === req.params.id) {
+export const getUserListing = async (req, res, next) => {
+  if (req.user.id === req.query.id) {
     try {
-      const listings = await Listing.find({userRef : req.params.id});
+      const listings = await Listing.find({ userRef: req.query.id });
       res.status(200).json(listings);
     } catch (error) {
       next(error);
     }
-
   } else {
-    return next(errorHandler(401,"you can only see your own listings"));
+    return next(errorHandler(401, "You can only see your own listings"));
   }
-}
+};
+
 export const getUser = async (req, res, next) => {
   try {
     
